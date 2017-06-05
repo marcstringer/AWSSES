@@ -1,6 +1,4 @@
-# AWSDynamoDB
-
-**This library is a work in progress and does not yet work.**
+# AWSSES
 
 To add this library to your model, add the following lines to the top of your agent code:
 
@@ -11,29 +9,22 @@ To add this library to your model, add the following lines to the top of your ag
 
 **Note: [AWSRequestV4](https://github.com/electricimp/AWSRequestV4/) must be loaded.**
 
-This class can be used to send emails with SES.
+This class can be used to send emails with Amazon Simple Email Service.
 
 ## Class Methods
 
+
 ### constructor(region, accessKeyId, secretAccessKey)
 
-All parameters are strings. Access keys can be generated with IAM.
+AWSLambda object constructor takes the following parameters:
 
-### SendEmail(toAddresses, fromAddress, subject, message, cb)
+ Parameter             | Type           | Description
+---------------------- | -------------- | -----------
+region                 | string         | AWS region (e.g. "us-east-1")
+accessKeyId            | string         | IAM Access Key ID
+secretAccessKey        | string         | IAM Secret Access Key
 
-http://docs.aws.amazon.com/ses/latest/APIReference/API_SendEmail.html
-
- Parameter       | Type        | Description
----------------- | ----------- | ------------------------------
-**toAddresses**  | array       | An array of strings holding email addresses to send to
-**fromAddress**  | string      | The email address to send from
-**subject        | string      | The subject line of the email
-**message**      | string      | The message in the email
-**format**       | string      | The content-type of the email (either `Text` or `Html`)
-**cb**           | function    | Callback function that takes one parameter (a response table)
-
-```squirrel
-
+``` squirrel
 #require "AWSRequestV4.class.nut:1.0.2"
 #include "AWSSES.class.nut"
 
@@ -43,6 +34,22 @@ const SECRET_ACCESS_KEY = "YOUR_SECRET_KEY_HERE";
 
 ses <- AWSSES(AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY);
 
+```
+
+### SendEmail(toAddresses, fromAddress, subject, message, cb)
+
+http://docs.aws.amazon.com/ses/latest/APIReference/API_SendEmail.html
+
+ Parameter       | Type        | Description
+---------------- | ----------- | -------------
+**toAddresses**  | array       | An array of strings holding email addresses to send to
+**fromAddress**  | string      | The email address to send from
+**subject**      | string      | The subject line of the email
+**message**      | string      | The message in the email
+**format**       | string      | The content-type of the email (either `Text` or `Html`)
+**cb**           | function    | Callback function that takes one parameter (a response table)
+
+```squirrel
 to      <- ["test1@gmail.com"];
 from    <- "test2@gmail.com";
 subject <- "SES Test";
